@@ -1,0 +1,21 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# 下面这些根据情况可以不忽略，但新手建议先忽略
+*.pidb
+*.pdb
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# IDE
+.idea/
+.vs/
+*.csproj
+*.sln
