@@ -1,17 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class StatsUI : MonoBehaviour
 {
-
     public GameObject[] statsSlots;
-
     public CanvasGroup statsCanvas;
 
-    private bool statsOpen = false;
 
     private void Start()
     {
@@ -21,26 +17,37 @@ public class StatsUI : MonoBehaviour
     private void Update()
     {
         if (Input.GetButtonDown("ToggleStats"))
-            if (statsOpen)
+        {
+            if (statsCanvas.alpha >= 0.9f) 
             {
-                Time.timeScale = 1;
-                UpdateAllStats();
-                statsCanvas.alpha = 0;
-                statsOpen = false;
+                Close();
             }
             else
             {
-                Time.timeScale = 0;
-                UpdateAllStats();
-                statsCanvas.alpha = 1;
-                statsOpen = true;
+                Open();
             }
+        }
+    }
+
+    public void Open()
+    {
+        UpdateAllStats();
+        statsCanvas.alpha = 1;
+        statsCanvas.interactable = true;
+        ContinueUI.Instance.Push(statsCanvas);
+    }
+
+    public void Close()
+    {
+        statsCanvas.alpha = 0;
+        statsCanvas.interactable = false;
+        ContinueUI.Instance.RemoveIfTop(statsCanvas);
     }
 
 
     public void UpdateDamage()
     {
-        statsSlots[0].GetComponentInChildren<TMP_Text>().text = "伤害"+StatsManager.Instance.damage;
+        statsSlots[0].GetComponentInChildren<TMP_Text>().text = "伤害" + -StatsManager.Instance.damage;
     }
 
     public void UpdateSpeed()
@@ -52,12 +59,5 @@ public class StatsUI : MonoBehaviour
     {
         UpdateDamage();
         UpdateSpeed();
-
     }
-
-
-
-
-
-
 }
